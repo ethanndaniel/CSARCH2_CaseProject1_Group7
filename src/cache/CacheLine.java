@@ -1,9 +1,17 @@
-class Cacheline {
+public class CacheLine {
 
-    //values of a slot per set
-    boolean valid;
-    int tag;
-    int memory_block;
-    long last_access_time;
+    //parameters of a cache line
+    private boolean valid;
+    private int tag;
+    private int memoryBlock;
+    private long lastAccessTime;
+
+
+    public CacheLine() {
+        valid = false;
+        tag = 0;
+        memoryBlock = 0;
+        lastAccessTime = 0;
+    }
 
 }

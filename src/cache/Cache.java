@@ -1,8 +1,11 @@
-class Cache {
+public class Cache {
 
-    //common specs
-    int block_size;
-    int total_cache_blocks;
-    int number_of_sets;
-    CacheSet[] sets;
+    //based on common specs
+    private int blockSize;
+    private int totalCacheBlocks;
+    private int numberOfSets;
+
+    private CacheSet[] sets;
+    private ReadPolicy readPolicy;
+
 }
