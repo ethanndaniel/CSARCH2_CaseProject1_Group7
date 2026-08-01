@@ -1,4 +1,4 @@
-import { createCacheSet } from "./CacheSet";
+import { createCacheSet } from "./CacheSet.js";
 
 export function createCache(config) {
 

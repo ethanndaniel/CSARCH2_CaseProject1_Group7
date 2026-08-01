@@ -1,5 +1,5 @@
-import { createCache } from "./src/cache/Cache.js";
-import { ReadPolicy } from "./src/cache/ReadPolicy.js";
+import { createCache } from "./src/app/cache/Cache.js";
+import { ReadPolicy } from "./src/app/cache/ReadPolicy.js";
 
 const cache = createCache({
     blockSize: 4,
