@@ -2,8 +2,9 @@ import { createCacheSet } from "./CacheSet.js";
 
 export function createCache(config) {
 
-    validateConfiguration(config);
+    validateSpecs(config);
 
+    //common specs
     const ways = 4;
     const numberOfSets = config.totalCacheBlocks / ways;
 
@@ -20,7 +21,8 @@ export function createCache(config) {
         )
     };
 
-    function validateConfiguration(config) {
+    //validate common specs
+    function validateSpecs(config) {
         if (config.blockSize < 2)
             throw new Error("Minimum of 2 words.");
 
