@@ -1,5 +1,7 @@
 import { createCache } from "./src/app/cache/Cache.js";
 import { ReadPolicy } from "./src/app/cache/ReadPolicy.js";
+import { mapBlock } from "./src/app/cache/AddressMap.js";
+
 
 const cache = createCache({
     blockSize: 4,
@@ -7,4 +9,8 @@ const cache = createCache({
     readPolicy: ReadPolicy.LOAD_THROUGH
 });
 
-console.log(cache);
+//test mapping of mem blocks
+console.log(mapBlock(0, cache.numberOfSets));
+console.log(mapBlock(32, cache.numberOfSets));
+console.log(mapBlock(67, cache.numberOfSets));
+//type in cmd: npm run test-cache
