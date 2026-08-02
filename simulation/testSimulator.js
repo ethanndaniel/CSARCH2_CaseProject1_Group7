@@ -39,6 +39,10 @@ for (const block of sequence) {
 }
 
 //display results
+const log = sim.getLog();
+log.forEach(entry => {
+    console.log(entry);
+});
 console.log(sim.getStats());
 console.log(cache);
 
