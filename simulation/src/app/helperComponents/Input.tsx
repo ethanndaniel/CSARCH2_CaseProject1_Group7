@@ -6,7 +6,7 @@ export default function Input(){
     const[block,setBlock]=useState("");
     const[selected, setSelected]=useState("");
     return(
-        <div className="gap-5">
+        <div className="w-full h-fit px-10">
         <label> Title Here</label>
             {/* Input for setting the number of word per block */}
         <label className="block text-white-800 font-semibold text-sm">Input the number of words per block</label>
