@@ -4,10 +4,13 @@ import { mapBlock } from "./src/app/cache/AddressMap.js";
 import { createSimulator } from "./src/app/cache/CacheSimulator.js";
 import { ReplacementPolicy } from "./src/app/cache/ReplacementPolicy.js";
 
+import { sequentialSequence, midRepeatBlocks, randomSequence } from "./src/app/cache/TestCases.js";
+
+
 
 const cache = createCache({
     blockSize: 4,
-    totalCacheBlocks: 16,
+    totalCacheBlocks: 4, //changed to 4 for Test Cases
     readPolicy: ReadPolicy.LOAD_THROUGH
 });
 
@@ -16,18 +19,27 @@ console.log(mapBlock(0, cache.numberOfSets));
 console.log(mapBlock(32, cache.numberOfSets));
 console.log(mapBlock(67, cache.numberOfSets));
 
+
 //test for cache sim
 const sim = createSimulator(cache, ReplacementPolicy.MRU);//change to LRU or MRU to test different replacement policies
 
-//Test case a: sequential, n=16, so access 0..31, twice
-const n = cache.totalCacheBlocks;
-const sequence = [];
-for (let rep = 0; rep < 2; rep++) {
-    for (let b = 0; b < 2 * n; b++) {
-        sequence.push(b);
-    }
+
+//choose a test case A, B, or C:
+// const sequence = sequentialSequence(cache.totalCacheBlocks);
+// const sequence = midRepeatBlocks(cache.totalCacheBlocks);
+const sequence = randomSequence();
+
+
+console.log(sequence);
+console.log("Length:", sequence.length);
+
+//run the simulation
+for (const block of sequence) {
+    sim.accessMemoryBlock(block);
 }
 
-sequence.forEach(block => sim.accessMemoryBlock(block));
+//display results
 console.log(sim.getStats());
+console.log(cache);
+
 //type in cmd: npm run test-cache
