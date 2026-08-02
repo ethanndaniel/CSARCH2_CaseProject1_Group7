@@ -1,7 +1,7 @@
 
 export default function MainMemory(){
     return(
-        <div className="w-[15vw] h-[70vh] overflow-auto bg-gray-400 gap-1 p-2 border-1 border-black">
+        <div className="w-[15vw] h-full overflow-auto bg-gray-400 gap-1 p-2 border-1 border-black">
             <h1 className="text-center text-white font-bold">Main Memory</h1>
             {Array.from({length: 1024}, (_, i) => i + 1).map((num, index) => (
                 <Blocks key={index} num={index}/>
