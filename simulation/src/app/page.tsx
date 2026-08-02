@@ -3,6 +3,7 @@ import Image from "next/image";
 import {useState} from "react";
 import Input from "./helperComponents/Input";
 import Console from "./helperComponents/Console";
+import MainMemory from "./helperComponents/MainMemory";
 
 export default function Home() {
   const [word, setWord] = useState("");
@@ -17,7 +18,9 @@ export default function Home() {
 
         {/* Main View */}
         <div className="w-[70vw] h-full bg-gray-300 flex flex-col justify-between overflow-hidden">
-
+          <div>
+            <MainMemory/>
+          </div>
           {/* Simulator */}
           <div className="flex-1 p-4 overflow-auto text-white">
             {word}
