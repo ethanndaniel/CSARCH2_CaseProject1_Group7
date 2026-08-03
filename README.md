@@ -9,9 +9,11 @@
 
 ## 1.) Sequential Sequence
   The MM block sequence will follow an ascending order starting from 0 to 2n-1 where n represents the number of cache blocks parameterized. This sequence is repeated twice in its duration. 
+  
   **Ex: n = 4: 0,1,2,3,4,5,6,7, 0,1,2,3,4,5,6,7**
 ## 2.) Mid-repeat Blocks
   The MM block sequence initially start at a sequence of 0 to n-1. Then, it repeats a sequential sequence twice after the initial block sequence. Afterward, the reversed sequence is added to complete it.
+  
   **Ex: n = 4: 0,1,2,3, 0,1,2,3,4,5,6,7, 0,1,2,3,4,5,6,7, 3,2,1,0, 7,6,5,4,3,2,1,0, 7,6,5,4,3,2,1,0**
   
 ## 3.) Random Sequence
