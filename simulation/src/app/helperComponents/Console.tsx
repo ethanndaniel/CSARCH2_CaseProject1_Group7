@@ -8,7 +8,7 @@ interface ConsoleProps {
 
 const Console = ({ logs = [], onClear }: ConsoleProps) => {
   return (
-    <div className="h-55 min-h-[120px] max-h-[40vh] bg-gray-950 border-t border-gray-800 p-4 flex flex-col justify-between">
+    <div className="h-76 min-h-[120px] max-h-[55vh] bg-gray-950 border-t border-gray-800 p-4 flex flex-col justify-between">
 
         <div className="flex justify-between border-t border-gray-800 items-center mb-2 pb-1">
             <span className="text-gray-300">Console</span>
