@@ -1,18 +1,18 @@
 "use client"
 import React, { useState } from 'react'
 
-const Console = () => {
-    const [logs, setLogs] = useState<string[]>([
-    "Hey gang",
-    "kms",
-  ]); 
+interface ConsoleProps {
+  logs?: string[];
+  onClear?: () => void;
+}
 
+const Console = ({ logs = [], onClear }: ConsoleProps) => {
   return (
     <div className="h-48 min-h-[120px] max-h-[40vh] bg-gray-950 border-t border-gray-800 p-4 flex flex-col justify-between">
 
         <div className="flex justify-between border-t border-gray-800 items-center mb-2 pb-1">
             <span className="text-gray-300">Console</span>
-            <button onClick={() => setLogs([])}>
+            <button onClick={onClear}>
                 Clear
             </button>
         </div>
