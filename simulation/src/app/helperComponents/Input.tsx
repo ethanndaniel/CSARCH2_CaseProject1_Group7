@@ -32,7 +32,7 @@ export default function Input({ onSubmit }: InputProps){
     };
 
     return (
-    <div className="w-full h-full p-5">
+    <div className="w-full h-full p-5 text-white">
         <div className="flex justify-center items-center mb-5">
             <label className="font-gloock text-4xl text-center">4-WAY BSA LRU VS MRU</label>
         </div>
