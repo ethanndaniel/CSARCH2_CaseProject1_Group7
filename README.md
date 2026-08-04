@@ -18,4 +18,7 @@
   
 ## 3.) Random Sequence
   The MM block sequence is composed of 64 randomly generated block accesses. The block indices must be within a range from 0 to 1023.
+
+## Video Walkthrough
+https://youtu.be/cF2oFwuYuTE 
   
