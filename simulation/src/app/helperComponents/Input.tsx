@@ -32,8 +32,11 @@ export default function Input({ onSubmit }: InputProps){
     };
 
     return (
-    <div className="w-full h-fit px-10">
-        <label> Title Here</label>
+    <div className="w-full h-full p-5">
+        <div className="flex justify-center items-center mb-5">
+            <label>4-WAY BSA LRU vs MRU</label>
+            <label>Simulator</label>
+        </div>
         
         {/* Input for setting the number of word per block */}
         <label className="block text-white-800 font-semibold text-sm">Input the number of words per block</label>
@@ -123,6 +126,12 @@ export default function Input({ onSubmit }: InputProps){
             <label className="select-none ms-2 text-sm font-medium text-heading">load-through</label>
         </div>
 
+        {/* BUTTON */}
+        <div className= "flex justify-end py-2 px-5"> 
+            <button onClick={handleRunSimulation} className="cursor-pointer">
+                Run Simulation 
+            </button> 
+        </div>
         {/* CONFIGURATION DISPLAY */}
         <div>
             <span>
@@ -138,12 +147,6 @@ export default function Input({ onSubmit }: InputProps){
             </span>
         </div>
 
-        {/* BUTTON */}
-        <div className= "flex justify-end py-2 px-5"> 
-            <button onClick={handleRunSimulation} className="cursor-pointer">
-                Run Simulation 
-            </button> 
-        </div>
     </div>
     );
 }
