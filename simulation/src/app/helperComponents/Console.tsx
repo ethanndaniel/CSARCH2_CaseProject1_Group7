@@ -18,7 +18,7 @@ const Console = ({ logs = [], onClear }: ConsoleProps) => {
         </div>
 
         <div className="flex-1 overflow-y-auto space-y-1 text-green-400 whitespace-pre-wrap">
-            {logs.map((log, index) => (
+            {logs.map((log, index) => ( // loops through string array
             <div key={index} className="leading-tight">
                 <span className="text-gray-600 select-none">&gt; </span>
                 {log}

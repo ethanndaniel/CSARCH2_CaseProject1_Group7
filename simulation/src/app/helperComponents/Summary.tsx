@@ -20,8 +20,8 @@ export default function Summary({ content }: { content: CacheContent }) {
                 Miss Count: {content?.missCount ?? 0}<br/>
                 Hit Rate: {content?.hitRate !== undefined ? `${(content.hitRate * 100).toFixed(2)}%` : "0%"}<br/>
                 Miss Rate: {content?.missRate !== undefined ? `${(content.missRate * 100).toFixed(2)}%` : "0%"}<br/>
-                AMAT: {content?.AMAT !== undefined ? `${content.AMAT.toFixed(2)} ns/cycles` : "0"}<br/>
-                TMAT: {content?.TMAT !== undefined ? `${content.TMAT.toFixed(2)} ns/cycles` : "0"}<br/>
+                AMAT: {content?.AMAT !== undefined ? `${content.AMAT.toFixed(2)} ns` : "0"}<br/>
+                TMAT: {content?.TMAT !== undefined ? `${content.TMAT.toFixed(2)} ns` : "0"}<br/>
             </span>
         </div>
     );
