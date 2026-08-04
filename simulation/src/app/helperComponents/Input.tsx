@@ -28,10 +28,12 @@ export default function Input({ onSubmit }: InputProps){
     };
 
     return (
-        <div className="w-full h-fit px-10">
-        <label> Title Here</label>
+        <div className="w-full px-3">
+        <div className="py-5 flex">
+            <label className="font-gloock text-4xl text-center">4-WAY BSA LRU & MRU</label>
+        </div>
             {/* Input for setting the number of word per block */}
-        <label className="block text-white-800 font-semibold text-sm">Input the number of words per block</label>
+        <label className="block font-mate-sc text-base text-white-800 font-semibold ">Input the number of words per block</label>
           <div className="mt-2">
             <input
                 type="text"
@@ -40,9 +42,9 @@ export default function Input({ onSubmit }: InputProps){
                 value={word}
                 onChange={(e) => setWord(e.target.value)}/>
           </div>
-          <label className="pt-1 block text-white-500 text-sm">Some Description</label>
+          <label className="pt-1 block text-white-500 font-mate-sc text-sm">Some Description</label>
              {/* Input for setting the number of block per cache */}
-          <label className="block text-white-800 font-semibold text-sm mt-2">Input the number of blocks per cache</label>
+          <label className="block text-white-800 font-mate-sc text-base mt-2 font-semibold">Input the number of blocks per cache</label>
           <div className="mt-2">
             <input
                 type="text"
@@ -51,39 +53,39 @@ export default function Input({ onSubmit }: InputProps){
                 value={block}
                 onChange={(e) => setBlock(e.target.value)}/>
           </div>
-          <label className="pt-1 block text-white-500 text-sm">Some Description</label>
+          <label className="pt-1 block text-white-500 font-mate-sc text-sm">Some Description</label>
 
            {/* Setting whether it is non-load-through or load-through*/}
-          <label className="block text-white-800 font-semibold text-sm mt-2"> Read Policy:</label>
+          <label className="block text-white-800 font-mate-sc text-base font-semibold mt-2"> Read Policy:</label>
           <div className="flex items-center mb-2">
             {/*Radio for non-load-through */}
             <input id="default-radio-1" type="radio" value="non-load-through" checked={selected === "non-load-through"} onChange={(e) => setSelected(e.target.value)}
             className="w-4 h-4 text-neutral-primary border-default-medium bg-neutral-secondary-medium rounded-full checked:border-brand focus:ring-2 focus:outline-none focus:ring-brand-subtle border border-default appearance-none checked:bg-white checked:border-black"/>
-            <label className="select-none ms-2 text-sm font-medium text-heading">non-load-through</label>
+            <label className="select-none ms-2 font-mate-sc text-sm">non-load-through</label>
         </div>
         <div className="flex items-center">
              {/*Radio for load-through */}
             <input id="default-radio-2" type="radio" value="load-through" checked={selected === "load-through"} onChange={(e) => setSelected(e.target.value)}
             className="w-4 h-4 text-neutral-primary border-default-medium bg-neutral-secondary-medium rounded-full checked:border-brand focus:ring-2 focus:outline-none focus:ring-brand-subtle border border-default appearance-none checked:bg-white checked:border-black"/>
-            <label className="select-none ms-2 text-sm font-medium text-heading">load-through</label>
+            <label className="select-none ms-2 font-mate-sc text-sm">load-through</label>
         </div>
-        <div>
-            <span>
-                <br/>Main Memory Information:
-                <br/>Total Blocks in Main Memory: 1024
-                <br/>Number of words per block: {word}
-            </span>
-            <span>
-                <br/><br/>Cache Memory Information:
-                <br/>Total Set in a Cache: {(parseInt(block, 10) || 0) / 4}
-                <br/>Total Block in a Cache: {block}
-                <br/>Number of block per set: 4
-            </span>
-        </div>
-        <div className= "flex justify-end py-2 px-5">
+        <div className= "flex justify-end font-mate-sc text-base font-semibold">
             <button onClick={handleRunSimulation} className="cursor-pointer">
             Simulate
             </button>
+        </div>
+        <div >
+            <p className="font-mate-sc text-base font-semibold"><br/>Main Memory Information:</p>
+            <span className="font-mate-sc text-sm">
+                Total Blocks in Main Memory: 1024
+                <br/>Number of words per block: {word}
+            </span>
+            <p className="font-mate-sc text-base font-semibold"><br/>Cache Memory Information:</p>
+            <span className="font-mate-sc text-sm">
+                Total Set in a Cache: {(parseInt(block, 10) || 0) / 4}
+                <br/>Total Block in a Cache: {block}
+                <br/>Number of block per set: 4
+            </span>
         </div>
         </div>
     );
