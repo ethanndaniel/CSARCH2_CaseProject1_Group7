@@ -25,6 +25,8 @@ export default function Home() {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
+  const [replacementPolicy, setReplacementPolicy] = useState<string>("CSARCH2");
+
   // Helper to build partial cache state up to stepIndex
   const getCacheStateAtStep = (baseCache: any, logs: any[], stepIndex: number) => {
     if (!baseCache || !logs || logs.length === 0) return baseCache;
@@ -87,6 +89,7 @@ export default function Home() {
         }
 
         triggerBlockPulse();
+        
 
         // Get log item for current step
         const currentLog = simulationResults.logs[stepCounter];
@@ -155,6 +158,7 @@ export default function Home() {
     try {
       // set blockSize from user input
       if (payload.blockSize) setNumWord(payload.blockSize); 
+      if (payload.replacementPolicy) setReplacementPolicy(payload.replacementPolicy); 
 
       // Stop animation
       setIsPlaying(false);
@@ -222,7 +226,7 @@ export default function Home() {
     <div className="w-[70vw] h-full flex flex-col justify-between overflow-auto font-moderustic text-sm">
       <div>
         <div className="w-full h-[10vh] p-2 flex justify-between items-center text-white">
-          <h1 className=" px-5 font-gloock text-4xl"></h1>
+          <h1 className=" px-5 font-gloock text-4xl text-black">{replacementPolicy==="LRU"?(<h1>Least Recently Used (LRU)</h1>):replacementPolicy==="MRU"?(<h1>Most Recently Used (MRU)</h1>):(<h1>CSARCH2</h1>)}</h1>
 
           {/* Drop Down */}
           <div className="relative inline-block group px-10 rounded bg-[#111844] hover:bg-[#0A0F30]">
@@ -288,10 +292,10 @@ export default function Home() {
 
       {/* Summary Panel */}
       {showSummary&&(
-        <div className="w-full h-full bg-black/50 absolute top-0 left-0 flex justify-center items-center">
-          <div className="w-[50vw] h-[50vh] bg-white flex flex-col justify-between items-center p-5">
+        <div className="w-full min-h-screen bg-black/50 fixed top-0 left-0 flex justify-center items-center">
+          <div className="w-[50vw] h-[55vh]  bg-[#43598B] flex flex-col justify-between items-center px-5 py-3">
             {/*Close button */}
-            <button onClick={()=>setShowSummary(!showSummary)} className="w-full cursor-pointer text-black flex justify-end">
+            <button onClick={()=>setShowSummary(!showSummary)} className="w-full cursor-pointer text-white flex justify-end font-bold">
               X
             </button>
             <Summary content={simulationResults?.stats || {}}/>
