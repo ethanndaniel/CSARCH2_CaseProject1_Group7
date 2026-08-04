@@ -7,6 +7,7 @@ import MainMemory from "./helperComponents/MainMemory";
 import Cache from "./helperComponents/Cache";
 import Block from "./helperComponents/Block";
 import Summary from "./helperComponents/Summary";
+import Arrow from "./helperComponents/Arrow";
 
 export default function Home() {
   const [simulationResults, setSimulationResults] = useState(null); // response from route.js
@@ -262,6 +263,7 @@ export default function Home() {
             activeWay={activeWay}
           />
           </div>
+          <Arrow color="#111844"/>
           {/*Block */}
           <div className="bg-white">
             <Block 
@@ -270,6 +272,7 @@ export default function Home() {
             isActive={isBlockActive}
             />
           </div>
+          <Arrow color=" #111844"/>
           {/*Main Memory */}
           <div className="bg-white">
             <h1 className="w-full bg-[#43598B] h-full text-center text-white font-moderustic text-body font-semibold border-1 border-black">Main Memory</h1>
