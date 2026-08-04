@@ -6,13 +6,13 @@ import Console from "./helperComponents/Console";
 import MainMemory from "./helperComponents/MainMemory";
 import Cache from "./helperComponents/Cache";
 import Block from "./helperComponents/Block";
-import Arrow from "./helperComponents/Arrow";
 import Summary from "./helperComponents/Summary";
 
 export default function Home() {
   const [simulationResults, setSimulationResults] = useState(null); // response from route.js
   const [logs, setLogs] = useState<string[]>(["Hello World!"]);
   const [numWord, setNumWord] = useState<number>(4);
+
 
   // Highlights for animation
   const [activeBlock, setActiveBlock] = useState<number | null>(null);
@@ -24,6 +24,8 @@ export default function Home() {
   const [showSummary, setShowSummary] = useState(false); // popup for summary tab
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+
+  const [replacementPolicy, setReplacementPolicy] = useState<string>("CSARCH2");
 
   // Helper to build partial cache state up to stepIndex
   const getCacheStateAtStep = (baseCache: any, logs: any[], stepIndex: number) => {
@@ -87,6 +89,7 @@ export default function Home() {
         }
 
         triggerBlockPulse();
+        
 
         // Get log item for current step
         const currentLog = simulationResults.logs[stepCounter];
@@ -155,6 +158,7 @@ export default function Home() {
     try {
       // set blockSize from user input
       if (payload.blockSize) setNumWord(payload.blockSize); 
+      if (payload.replacementPolicy) setReplacementPolicy(payload.replacementPolicy); 
 
       // Stop animation
       setIsPlaying(false);
@@ -211,7 +215,7 @@ export default function Home() {
   };
 
   return (
-  <div className="min-h-screen w-full bg-white flex justify-center  gap-2 py-2">
+  <div className="min-h-screen w-full bg-white flex justify-center gap-2 py-2">
   
     {/* Toolbox view */}
     <div className="w-[27vw] h-auto bg-[#111844]">
@@ -219,13 +223,13 @@ export default function Home() {
     </div>
 
     {/* Main View */}
-    <div className="w-[70vw] h-full bg-gray-300 flex flex-col justify-between overflow-auto">
+    <div className="w-[70vw] h-full flex flex-col justify-between overflow-auto font-moderustic text-sm">
       <div>
-        <div className="w-full h-[10vh] p-2 flex justify-between items-center text-black font-bold">
-          <h1 className=" px-10">Cache Simulator</h1>
+        <div className="w-full h-[10vh] p-2 flex justify-between items-center text-white">
+          <h1 className=" px-5 font-gloock text-4xl text-black">{replacementPolicy==="LRU"?(<h1>Least Recently Used (LRU)</h1>):replacementPolicy==="MRU"?(<h1>Most Recently Used (MRU)</h1>):(<h1>CSARCH2</h1>)}</h1>
 
           {/* Drop Down */}
-          <div className="relative inline-block group px-10 rounded bg-green-500">
+          <div className="relative inline-block group px-10 rounded bg-[#111844] hover:bg-[#0A0F30]">
             <button>
               <h1 className="cursor-pointer">{isPlaying ? "Simulating..." : "View"}</h1>
             </button>
@@ -247,42 +251,51 @@ export default function Home() {
         </div>
 
         {/* Simulator */}
-        <div className="h-[65vh] flex justify-between items-center gap-2 p-4">
-          <Cache 
+        <div className="h-[65vh] flex justify-between items-center gap-1 p-4 mt-5 mb-5">
+          {/*Cache */}
+          <div className="bg-white ">
+            <h1 className="w-full bg-[#43598B] h-full text-center text-white font-moderustic text-body font-semibold  border-1 border-black">Cache</h1>
+            <Cache 
             numSet={simulationResults?.cacheState?.numberOfSets || 4} 
             cacheData={isPlaying ? currentCacheState : simulationResults?.cacheState}
             activeSet={activeSet}
             activeWay={activeWay}
           />
-          <Arrow color="white"/>
-          <Block 
+          </div>
+          {/*Block */}
+          <div className="bg-white">
+            <Block 
             blockNum={activeBlock ?? 0} 
             numWord={numWord} 
             isActive={isBlockActive}
-          />
-          <Arrow color="white"/>
-          <MainMemory activeBlock={activeBlock}/>
+            />
+          </div>
+          {/*Main Memory */}
+          <div className="bg-white">
+            <h1 className="w-full bg-[#43598B] h-full text-center text-white font-moderustic text-body font-semibold border-1 border-black">Main Memory</h1>
+            <MainMemory activeBlock={activeBlock}/>
+          </div>
         </div>
 
         {/*Summary */}
         <div className="w-full flex justify-end p-2 ">
           <button onClick={()=>setShowSummary(!showSummary)} className="cursor-pointer">
-            <h1 className="px-5 text-black rounded hover:bg-blue-400 bg-green-500 cursor-pointer ">View Summary</h1>
+            <h1 className="px-5 text-white rounded hover:bg-[#0A0F30] bg-[#111844] cursor-pointer font-moderustic text-sm ">Summary</h1>
           </button>
         </div>
       </div>
         
       {/* Console */}
-      <div>
+      <div className="h-full">
         <Console logs={logs} onClear={handleClearLogs}/>
       </div>
 
       {/* Summary Panel */}
       {showSummary&&(
-        <div className="w-full h-full bg-black/50 absolute top-0 left-0 flex justify-center items-center">
-          <div className="w-[50vw] h-[50vh] bg-white flex flex-col justify-between items-center p-5">
+        <div className="w-full min-h-screen bg-black/50 fixed top-0 left-0 flex justify-center items-center">
+          <div className="w-[50vw] h-[55vh]  bg-[#43598B] flex flex-col justify-between items-center px-5 py-3">
             {/*Close button */}
-            <button onClick={()=>setShowSummary(!showSummary)} className="w-full cursor-pointer text-black flex justify-end">
+            <button onClick={()=>setShowSummary(!showSummary)} className="w-full cursor-pointer text-white flex justify-end font-bold">
               X
             </button>
             <Summary content={simulationResults?.stats || {}}/>
@@ -293,3 +306,4 @@ export default function Home() {
   </div>
   );
 }
+

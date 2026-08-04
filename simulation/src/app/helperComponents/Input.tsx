@@ -34,39 +34,40 @@ export default function Input({ onSubmit }: InputProps){
     return (
     <div className="w-full h-full p-5">
         <div className="flex justify-center items-center mb-5">
-            <label className="font-gloock text-head">4-WAY BSA LRU vs MRU</label>
-            <label>Simulator</label>
+            <label className="font-gloock text-4xl text-center">4-WAY BSA LRU VS MRU</label>
         </div>
         
         {/* Input for setting the number of word per block */}
-        <label className="block text-white-800 font-moderustic text-body font-semibold">Input the number of words per block</label>
-        <div className="mt-2">
+        <div className="px-2">
+            <label className="w-70 block text-white-800 font-moderustic text-body font-semibold">Input the number of words per block</label>
+        <div className="mt-1">
             <input
                 type="text"
                 name="word"
-                className="block w-56 rounded-md py-1.5 px-2 ring-1 ring-inset ring-gray-400 focus:text-white-800"
+                className="block w-70 rounded-md py-1.5 px-2 ring-1 ring-inset ring-gray-400 focus:text-white-800  font-moderustic text-sm"
                 value={word}
                 onChange={(e) => setWord(e.target.value)}/>
         </div>
         
             {/* Input for setting the number of block per cache */}
-        <label className="block text-white-800 mt-5 font-moderustic text-body font-semibold">Input the number of blocks per cache</label>
-        <div className="mt-2">
-            <input
-                type="text"
-                name="block"
-                className="block w-56 rounded-md py-1.5 px-2 ring-1 ring-inset ring-gray-400 focus:text-white-800"
-                value={block}
-                onChange={(e) => setBlock(e.target.value)}/>
-        </div>
+        
+            <label className="w-70 block text-white-800 mt-5 font-moderustic text-body font-semibold">Input the number of blocks per cache</label>
+            <div className="mt-1">
+                <input
+                    type="text"
+                    name="block"
+                    className="block w-70 rounded-md py-1.5 px-2 ring-1 ring-inset ring-gray-400 focus:text-white-800  font-moderustic text-sm"
+                    value={block}
+                    onChange={(e) => setBlock(e.target.value)}/>
+            </div>
 
         {/* Dropdown for selecting sequence */}
-        <label className="block text-white-800 font-moderustic text-body font-semibold mt-5">Select Sequence:</label>
-        <div className="mt-2">
+        <label className="w-70 block text-white-800 font-moderustic text-body font-semibold mt-5">Select Sequence:</label>
+        <div className="mt-1">
         <select
             value={testCase}
             onChange={(e) => setTestCase(e.target.value)}
-            className="block w-56 rounded-md py-1.5 px-2 ring-1 ring-inset ring-gray-400 bg-white text-black text-sm focus:outline-none"
+            className="block w-70 rounded-md py-1.5 px-2 ring-1 ring-inset ring-gray-400 bg-white text-black  font-moderustic text-sm focus:outline-none"
         >
             <option value="sequential">Sequential Sequence</option>
             <option value="midRepeat">Mid-Repeat Blocks</option>
@@ -76,7 +77,7 @@ export default function Input({ onSubmit }: InputProps){
 
         {/* Replacement Policy Dropdown */}
         <label className="block text-white-800 font-moderustic text-body font-semibold mt-5">Replacement Policy:</label>
-        <div className="flex items-center mb-1">
+        <div className="flex items-center mb-1 font-moderustic text-sm">
             <input 
                 id="radio-lru" 
                 type="radio" 
@@ -84,11 +85,11 @@ export default function Input({ onSubmit }: InputProps){
                 value="LRU" 
                 checked={replacementPolicy === "LRU"} 
                 onChange={(e) => setReplacementPolicy(e.target.value)}
-                className="w-4 h-4"
+                className="w-4 h-4 text-neutral-primary border-default-medium bg-neutral-secondary-medium rounded-full checked:border-brand focus:ring-2 focus:outline-none focus:ring-brand-subtle border border-default appearance-none checked:bg-white checked:border-black"
             />
             <label htmlFor="radio-lru" className="select-none ms-2 text-sm font-medium">LRU (Least Recently Used)</label>
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center  font-moderustic text-sm">
             <input 
             id="radio-mru" 
             type="radio" 
@@ -96,57 +97,59 @@ export default function Input({ onSubmit }: InputProps){
             value="MRU" 
             checked={replacementPolicy === "MRU"} 
             onChange={(e) => setReplacementPolicy(e.target.value)}
-            className="w-4 h-4"
+            className="w-4 h-4 text-neutral-primary border-default-medium bg-neutral-secondary-medium rounded-full checked:border-brand focus:ring-2 focus:outline-none focus:ring-brand-subtle border border-default appearance-none checked:bg-white checked:border-black"
             />
             <label htmlFor="radio-mru" className="select-none ms-2 text-sm font-medium">MRU (Most Recently Used)</label>
         </div>
         
         {/* non-load-through or load-through setting */}
         <label className="block text-white-800 font-moderustic text-body font-semibold mt-5"> Read Policy:</label>
-        <div className="flex items-center mb-2">
+        <div className="flex items-center mb-1 font-moderustic text-sm">
             {/*Radio for non-load-through */}
             <input id="default-radio-1" 
                 type="radio" 
                 value="non-load-through" 
+                name="policy"
                 checked={selected === "non-load-through"} 
                 onChange={(e) => setSelected(e.target.value)} 
                 className="w-4 h-4 text-neutral-primary border-default-medium bg-neutral-secondary-medium rounded-full checked:border-brand focus:ring-2 focus:outline-none focus:ring-brand-subtle border border-default appearance-none checked:bg-white checked:border-black"
             />
-            <label className="select-none ms-2 text-sm font-medium text-heading">non-load-through</label>
+            <label htmlFor="default-radio-1" className="select-none ms-2 text-sm font-medium text-heading">Non Load Through</label>
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center font-moderustic text-sm">
             {/*Radio for load-through */}
             <input id="default-radio-2" 
                 type="radio" 
                 value="load-through" 
+                name="policy"
                 checked={selected === "load-through"} 
                 onChange={(e) => setSelected(e.target.value)} 
                 className="w-4 h-4 text-neutral-primary border-default-medium bg-neutral-secondary-medium rounded-full checked:border-brand focus:ring-2 focus:outline-none focus:ring-brand-subtle border border-default appearance-none checked:bg-white checked:border-black"
             />
-            <label className="select-none ms-2 text-sm font-medium text-heading">load-through</label>
+            <label htmlFor="default-radio-2" className="select-none ms-2 text-sm font-medium text-heading">Load Through</label>
         </div>
 
         {/* BUTTON */}
-        <div className= "flex justify-end py-2 px-5 font-moderustic text-body font-semibold"> 
-            <button onClick={handleRunSimulation} className="cursor-pointer">
+        <div className= "flex justify-end py-2 font-moderustic text-body font-semibold"> 
+            <button onClick={handleRunSimulation} className="cursor-pointer rounded border-1 px-3 py-1 hover:bg-[#0A0F30]">
                 Run Simulation 
             </button> 
         </div>
         {/* CONFIGURATION DISPLAY */}
-        <div>
+        <div className="mt-5">
             <p className="font-moderustic text-body font-semibold">Main Memory Information:</p>
-            <span>
+            <span className="font-moderustic text-sm">
                 Total Blocks in Main Memory: 1024
                 <br/>Number of words per block: {word}
             </span>
             <p className="font-moderustic text-body font-semibold"><br/>Cache Memory Information:</p>
-            <span>
+            <span className="font-moderustic text-sm">
                 Total Set in a Cache: {(parseInt(block, 10) || 0) / 4}
                 <br/>Total Block in a Cache: {block}
                 <br/>Number of block per set: 4
             </span>
         </div>
-
+        </div>
     </div>
     );
 }

@@ -30,9 +30,9 @@ export default function Cache({
     }, [activeSet]);
 
     return (
-        <div>
-            <div className="w-[25vw] h-[65vh] overflow-auto bg-gray-400 gap-1 p-2 border-1 border-black">
-                <h1 className="text-center text-white font-bold">Cache</h1>
+       
+            <div className="bg-[#43598B] w-[26vw] h-[67vh] border-1 mt-1 flex justify-center items-center border-1 border-black">
+                <div className="w-[25vw] h-[65vh] overflow-auto bg-[#43598B] gap-1 p-2  border-black">
                 {setList.map((setData: any, index: number) => (
                     <Sets 
                         key={index} 
@@ -46,7 +46,7 @@ export default function Cache({
                     />
                 ))}
             </div>
-        </div>
+            </div>
     );
 }
 
@@ -58,14 +58,14 @@ const Sets = forwardRef<HTMLDivElement, { numSet: number; setData: any; isActive
         const ways = setData?.ways || Array.from({ length: 4 }, () => ({ tag: null, memoryBlock: null, valid: false }));
 
         return (
-            <div ref={ref} className="bg-blue-500 w-full h-auto flex justify-center items-center text-white border-1 border-black my-1">
+            <div ref={ref} className="bg-[#111844] w-full h-auto font-moderustic text-sm flex justify-center items-center text-white border-1 border-white my-1">
                 {/* Column 1 */}
-                <h1 className={`w-[50%] text-center font-bold ${isActiveSet ? "bg-green-600 py-2" : "text-white"}`}>
+                <h1 className={`w-[50%] py-11 text-center font-bold ${isActiveSet ? "bg-green-600 py-2" : "text-white"}`}>
                     Set {numSet}
                 </h1>
 
                  {/* Column 2 */}
-                <div className="bg-blue-500 w-full h-auto flex flex-col justify-center items-center text-white border-l-1 border-black">
+                <div className="bg-[#111844] w-full h-auto flex flex-col justify-center items-center text-white border-l-1 border-white">
                     <h1 className="text-center text-white font-bold">Address</h1>
                     {ways.map((way: any, index: number) => (
                         <AddressBlock 
@@ -77,7 +77,7 @@ const Sets = forwardRef<HTMLDivElement, { numSet: number; setData: any; isActive
                 </div>
 
                 {/* Column 3*/}
-                <div className="bg-blue-500 w-full h-auto flex flex-col justify-center items-center text-white border-l-1 border-black">
+                <div className="bg-[#111844] w-full h-auto flex flex-col justify-center items-center text-white border-l-1 border-black">
                     <h1 className="text-center text-white font-bold">Value</h1>
                     {ways.map((way: any, index: number) => (
                         <ValueBlock 
@@ -97,7 +97,7 @@ Sets.displayName = "Sets";
 // Helper function to display address
 function AddressBlock({ address, isActive }: { address: string; isActive?: boolean }){
     return (
-        <div className={`${isActive ? "bg-green-600 font-bold" : "bg-blue-500"} w-full h-auto flex justify-center items-center text-white border-1 border-black transition-colors duration-200`}>
+        <div className={`${isActive ? "bg-green-600 font-bold" : "bg-[#467DFD]"} w-full h-auto flex justify-center items-center text-white border-1 border-black transition-colors duration-200`}>
             <h1>{address}</h1>
         </div>
     );
@@ -106,7 +106,7 @@ function AddressBlock({ address, isActive }: { address: string; isActive?: boole
 // Helper function to display value
 function ValueBlock({ value, isActive }: { value: string; isActive?: boolean }){
     return (
-        <div className={`${isActive ? "bg-green-600 font-bold" : "bg-blue-500"} w-full h-auto flex justify-center items-center text-white border-1 border-black transition-colors duration-200`}>
+        <div className={`${isActive ? "bg-green-600 font-bold" : "bg-[#467DFD]"} w-full h-auto flex justify-center items-center text-white border-1 border-black transition-colors duration-200`}>
             <h1>{value}</h1>
         </div>
     );

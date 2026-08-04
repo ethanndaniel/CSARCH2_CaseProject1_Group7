@@ -1,5 +1,5 @@
 import { createCacheSet } from "./CacheSet.js";
-
+import { selectVictim } from "./ReplacementPolicy.js";
 export function createCache(config) {
 
     validateSpecs(config);
@@ -18,7 +18,8 @@ export function createCache(config) {
         sets: Array.from(
             { length: numberOfSets },
             () => createCacheSet(ways)
-        )
+        ),
+        replacementPolicy:selectVictim(numberOfSets,config.readPolicy)
     };
 
     //validate common specs
