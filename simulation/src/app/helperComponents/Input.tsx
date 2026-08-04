@@ -10,6 +10,7 @@ export default function Input({ onSubmit }: InputProps){
     const [block, setBlock] = useState("");
     const [selected, setSelected] = useState("non-load-through");
     const [testCase, setTestCase] = useState("sequential");
+    const [replacementPolicy, setReplacementPolicy] = useState("LRU");
 
     const handleRunSimulation = async () => {
         const parsedWord = parseInt(word, 10) || 0;
@@ -24,7 +25,8 @@ export default function Input({ onSubmit }: InputProps){
             ways: ways,
             numberOfSets: numberOfSets,
             readPolicy: selected,
-            testCase: testCase
+            testCase: testCase,
+            replacementPolicy: replacementPolicy
         };
         await onSubmit(payload); 
     };
@@ -67,6 +69,33 @@ export default function Input({ onSubmit }: InputProps){
             <option value="midRepeat">Mid-Repeat Blocks</option>
             <option value="random">Random Sequence</option>
         </select>
+        </div>
+
+        {/* Replacement Policy Dropdown */}
+        <label className="block text-white-800 font-semibold text-sm mt-2">Replacement Policy:</label>
+        <div className="flex items-center mb-1">
+            <input 
+                id="radio-lru" 
+                type="radio" 
+                name="replacement" 
+                value="LRU" 
+                checked={replacementPolicy === "LRU"} 
+                onChange={(e) => setReplacementPolicy(e.target.value)}
+                className="w-4 h-4"
+            />
+            <label htmlFor="radio-lru" className="select-none ms-2 text-sm font-medium">LRU (Least Recently Used)</label>
+        </div>
+        <div className="flex items-center">
+            <input 
+            id="radio-mru" 
+            type="radio" 
+            name="replacement" 
+            value="MRU" 
+            checked={replacementPolicy === "MRU"} 
+            onChange={(e) => setReplacementPolicy(e.target.value)}
+            className="w-4 h-4"
+            />
+            <label htmlFor="radio-mru" className="select-none ms-2 text-sm font-medium">MRU (Most Recently Used)</label>
         </div>
         
         {/* non-load-through or load-through setting */}
