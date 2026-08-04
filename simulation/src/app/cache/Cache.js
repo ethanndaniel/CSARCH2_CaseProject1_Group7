@@ -19,7 +19,6 @@ export function createCache(config) {
             { length: numberOfSets },
             () => createCacheSet(ways)
         ),
-        replacementPolicy:selectVictim(numberOfSets,config.readPolicy)
     };
 
     //validate common specs
