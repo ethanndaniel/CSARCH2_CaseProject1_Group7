@@ -226,7 +226,7 @@ export default function Home() {
     <div className="w-[70vw] h-full flex flex-col justify-between overflow-auto font-moderustic text-sm">
       <div>
         <div className="w-full h-[10vh] p-2 flex justify-between items-center text-white">
-          <h1 className=" px-5 font-gloock text-4xl text-black">{replacementPolicy==="LRU"?(<h1>Least Recently Used (LRU)</h1>):replacementPolicy==="MRU"?(<h1>Most Recently Used (MRU)</h1>):(<h1>CSARCH2</h1>)}</h1>
+          <h1 className=" px-5 font-gloock text-4xl text-black">{replacementPolicy==="LRU"?(<p>Least Recently Used (LRU)</p>):replacementPolicy==="MRU"?(<p>Most Recently Used (MRU)</p>):(<h1>CSARCH2</h1>)}</h1>
 
           {/* Drop Down */}
           <div className="relative inline-block group px-10 rounded bg-[#111844] hover:bg-[#0A0F30]">
