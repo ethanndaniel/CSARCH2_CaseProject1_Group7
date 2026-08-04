@@ -32,11 +32,14 @@ export default function Input({ onSubmit }: InputProps){
     };
 
     return (
-    <div className="w-full h-fit px-10">
-        <label> Title Here</label>
+    <div className="w-full h-full p-5">
+        <div className="flex justify-center items-center mb-5">
+            <label className="font-gloock text-head">4-WAY BSA LRU vs MRU</label>
+            <label>Simulator</label>
+        </div>
         
         {/* Input for setting the number of word per block */}
-        <label className="block text-white-800 font-semibold text-sm">Input the number of words per block</label>
+        <label className="block text-white-800 font-moderustic text-body font-semibold">Input the number of words per block</label>
         <div className="mt-2">
             <input
                 type="text"
@@ -47,7 +50,7 @@ export default function Input({ onSubmit }: InputProps){
         </div>
         
             {/* Input for setting the number of block per cache */}
-        <label className="block text-white-800 font-semibold text-sm mt-2">Input the number of blocks per cache</label>
+        <label className="block text-white-800 mt-5 font-moderustic text-body font-semibold">Input the number of blocks per cache</label>
         <div className="mt-2">
             <input
                 type="text"
@@ -58,7 +61,7 @@ export default function Input({ onSubmit }: InputProps){
         </div>
 
         {/* Dropdown for selecting sequence */}
-        <label className="block text-white-800 font-semibold text-sm mt-2">Select Sequence:</label>
+        <label className="block text-white-800 font-moderustic text-body font-semibold mt-5">Select Sequence:</label>
         <div className="mt-2">
         <select
             value={testCase}
@@ -72,7 +75,7 @@ export default function Input({ onSubmit }: InputProps){
         </div>
 
         {/* Replacement Policy Dropdown */}
-        <label className="block text-white-800 font-semibold text-sm mt-2">Replacement Policy:</label>
+        <label className="block text-white-800 font-moderustic text-body font-semibold mt-5">Replacement Policy:</label>
         <div className="flex items-center mb-1">
             <input 
                 id="radio-lru" 
@@ -99,7 +102,7 @@ export default function Input({ onSubmit }: InputProps){
         </div>
         
         {/* non-load-through or load-through setting */}
-        <label className="block text-white-800 font-semibold text-sm mt-2"> Read Policy:</label>
+        <label className="block text-white-800 font-moderustic text-body font-semibold mt-5"> Read Policy:</label>
         <div className="flex items-center mb-2">
             {/*Radio for non-load-through */}
             <input id="default-radio-1" 
@@ -123,27 +126,27 @@ export default function Input({ onSubmit }: InputProps){
             <label className="select-none ms-2 text-sm font-medium text-heading">load-through</label>
         </div>
 
+        {/* BUTTON */}
+        <div className= "flex justify-end py-2 px-5 font-moderustic text-body font-semibold"> 
+            <button onClick={handleRunSimulation} className="cursor-pointer">
+                Run Simulation 
+            </button> 
+        </div>
         {/* CONFIGURATION DISPLAY */}
         <div>
+            <p className="font-moderustic text-body font-semibold">Main Memory Information:</p>
             <span>
-                <br/>Main Memory Information:
-                <br/>Total Blocks in Main Memory: 1024
+                Total Blocks in Main Memory: 1024
                 <br/>Number of words per block: {word}
             </span>
+            <p className="font-moderustic text-body font-semibold"><br/>Cache Memory Information:</p>
             <span>
-                <br/><br/>Cache Memory Information:
-                <br/>Total Set in a Cache: {(parseInt(block, 10) || 0) / 4}
+                Total Set in a Cache: {(parseInt(block, 10) || 0) / 4}
                 <br/>Total Block in a Cache: {block}
                 <br/>Number of block per set: 4
             </span>
         </div>
 
-        {/* BUTTON */}
-        <div className= "flex justify-end py-2 px-5"> 
-            <button onClick={handleRunSimulation} className="cursor-pointer">
-                Run Simulation 
-            </button> 
-        </div>
     </div>
     );
 }

@@ -211,10 +211,10 @@ export default function Home() {
   };
 
   return (
-  <div className="h-screen w-full bg-white flex justify-center items-center gap-2 py-2">
+  <div className="min-h-screen w-full bg-white flex justify-center  gap-2 py-2">
   
     {/* Toolbox view */}
-    <div className="w-[27vw] min-h-screen bg-[#111844]">
+    <div className="w-[27vw] h-auto bg-[#111844]">
       <Input onSubmit={handleRunSimulation}/>
     </div>
 
