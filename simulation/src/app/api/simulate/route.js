@@ -21,11 +21,11 @@ export async function POST(request) { // Next.js app router, listens for request
     const simulator = createSimulator(cache, ReplacementPolicy.LRU);
     let sequence = [];
     if (testCase === "midRepeat") {
-      sequence = midRepeatBlocks(cache.numberOfSets);
+      sequence = midRepeatBlocks(cache.totalCacheBlocks);
     } else if (testCase === "random") {
       sequence = randomSequence();
     } else {
-      sequence = sequentialSequence(cache.numberOfSets);
+      sequence = sequentialSequence(cache.totalCacheBlocks);
     }
 
     // iterate through each block and run simulation
