@@ -13,12 +13,59 @@ export default function Home() {
   const [simulationResults, setSimulationResults] = useState(null); // response from route.js
   const [logs, setLogs] = useState<string[]>(["Hello World!"]);
   const [numWord, setNumWord] = useState<number>(4);
+
+  // Highlights for animation
   const [activeBlock, setActiveBlock] = useState<number | null>(null);
+  const [activeSet, setActiveSet] = useState<number | null>(null);
+  const [activeWay, setActiveWay] = useState<number | null>(null);
+  const [isBlockActive, setIsBlockActive] = useState<boolean>(false);
+  const [currentCacheState, setCurrentCacheState] = useState<any>(null);
 
   const [showSummary, setShowSummary] = useState(false); // popup for summary tab
-
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+
+  // Helper to build partial cache state up to stepIndex
+  const getCacheStateAtStep = (baseCache: any, logs: any[], stepIndex: number) => {
+    if (!baseCache || !logs || logs.length === 0) return baseCache;
+
+    const numberOfSets = baseCache.numberOfSets;
+    const waysCount = baseCache.ways;
+
+    const animatedSets = Array.from({ length: numberOfSets }, () => ({
+      ways: Array.from({ length: waysCount }, () => ({
+        valid: false,
+        tag: null,
+        memoryBlock: null,
+        lastAccess: 0,
+      })),
+    }));
+
+    for (let i = 0; i <= stepIndex && i < logs.length; i++) {
+      const log = logs[i];
+      if (animatedSets[log.setIndex] && animatedSets[log.setIndex].ways[log.way]) {
+        animatedSets[log.setIndex].ways[log.way] = {
+          valid: true,
+          tag: log.tag,
+          memoryBlock: log.memoryBlock,
+          lastAccess: log.accessNumber,
+        };
+      }
+    }
+  return {
+      ...baseCache,
+      sets: animatedSets,
+    };
+  };
+
+  // Helper function to anim pulse
+  const triggerBlockPulse = () => {
+    setIsBlockActive(true);
+    // Turn off highlight after 1s
+    setTimeout(() => {
+      setIsBlockActive(false);
+    }, 500);
+  };
 
   // ANIMATION FUNCTION
   useEffect(() => {
@@ -34,15 +81,28 @@ export default function Home() {
         // Stop playing at end of logs
         if (stepCounter >= simulationResults.logs.length) {
           setIsPlaying(false);
+          setIsBlockActive(false);
           clearInterval(timer);
           return;
         }
 
+        triggerBlockPulse();
+
         // Get log item for current step
         const currentLog = simulationResults.logs[stepCounter];
         setActiveBlock(currentLog.memoryBlock);
+        setActiveSet(currentLog.setIndex);
+        setActiveWay(currentLog.way);
 
-        // Update console cleanly (runs strictly ONCE per interval)
+        // Update cache state
+        const updatedCache = getCacheStateAtStep(
+          simulationResults.cacheState,
+          simulationResults.logs,
+          stepCounter
+        );
+        setCurrentCacheState(updatedCache);
+
+        // Update console
         const status = currentLog.hit ? "HIT" : "MISS";
         const evictionInfo = currentLog.evictedBlock !== null ? ` (Evicted block ${currentLog.evictedBlock})` : "";
         const logMsg = `Step ${stepCounter + 1} / ${simulationResults.logs.length}: Block ${currentLog.memoryBlock} -> Set ${currentLog.setIndex}, Way ${currentLog.way} [${status}]${evictionInfo}`;
@@ -66,9 +126,18 @@ export default function Home() {
     // reset step
     setCurrentStep(0);
 
-    // set initial block to the first log block
+    // set initial states
     const firstLog = simulationResults.logs[0];
     setActiveBlock(firstLog.memoryBlock);
+    setActiveSet(firstLog.setIndex);
+    setActiveWay(firstLog.way);
+
+    const initialCache = getCacheStateAtStep(
+      simulationResults.cacheState,
+      simulationResults.logs,
+      0
+    );
+    setCurrentCacheState(initialCache);
 
     // display first log entry
     const status = firstLog.hit ? "HIT" : "MISS";
@@ -106,7 +175,10 @@ export default function Home() {
 
         // get active block from last log
         if (data.logs?.length > 0) {
-          setActiveBlock(data.logs[data.logs.length - 1].memoryBlock);
+          const lastLog = data.logs[data.logs.length - 1];
+          setActiveBlock(lastLog.memoryBlock);
+          setActiveSet(lastLog.setIndex);
+          setActiveWay(lastLog.way);
         }
 
         // format objects from logs to strings
@@ -178,10 +250,16 @@ export default function Home() {
         <div className="h-[65vh] flex justify-between items-center gap-2 p-4">
           <Cache 
             numSet={simulationResults?.cacheState?.numberOfSets || 4} 
-            cacheData={simulationResults?.cacheState}
+            cacheData={isPlaying ? currentCacheState : simulationResults?.cacheState}
+            activeSet={activeSet}
+            activeWay={activeWay}
           />
           <Arrow color="white"/>
-          <Block blockNum={activeBlock ?? 0} numWord={numWord}/>
+          <Block 
+            blockNum={activeBlock ?? 0} 
+            numWord={numWord} 
+            isActive={isBlockActive}
+          />
           <Arrow color="white"/>
           <MainMemory activeBlock={activeBlock}/>
         </div>
